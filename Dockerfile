@@ -1,4 +1,4 @@
-FROM ghcr.io/hablutzel1/ejbca-hsm-driver-free-base:0.1.0
+FROM ghcr.io/hablutzel1/ejbca-hsm-driver-free-base:0.2.0
 
 # TODO try to move the following to a builder stage and copy only the minimum files to get a lighter final stage.
 RUN microdnf install -y wget
