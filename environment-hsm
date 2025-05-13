@@ -1,0 +1,10 @@
+cp /tmp/dinamo/dinamo_restricted_mode.cfg /opt/caml-crush-client/dinamo_restricted_mode.cfg
+
+# TODO try to make it simpler to append to /opt/caml-crush-client/environment-hsm, e.g. with a function that receives a heredoc from STDIN and writes every line prepended by "echo".
+cat << 'EOF' >> /opt/caml-crush-client/environment-hsm
+echo "cryptotoken.p11.lib.${caml_crush_conf_id}.slotlist=1" >> /opt/keyfactor/ejbca/conf/web.properties
+echo "cryptotoken.p11.attr.${caml_crush_conf_id}.name=HSM Dinamo restricted mode" >> /opt/keyfactor/ejbca/conf/web.properties
+echo "cryptotoken.p11.attr.${caml_crush_conf_id}.file=/opt/caml-crush-client/dinamo_restricted_mode.cfg" >> /opt/keyfactor/ejbca/conf/web.properties
+echo "# This is the only slot available for HSM Dinamo. See https://docs.dinamonetworks.io/hsm/integration/pkcs11/" >> /opt/keyfactor/ejbca/conf/web.properties
+echo "cryptotoken.p11.defaultslot=1" >> /opt/keyfactor/ejbca/conf/web.properties
+EOF

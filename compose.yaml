@@ -1,0 +1,24 @@
+services:
+  application:
+    build: ../docker-ejbca-hsm-driver-free-base/custom-ejbca-ce-sample
+    environment:
+      - P11SERVER=hsm-driver
+    ports:
+      - "8443:8443"
+    volumes:
+      - hsm-driver:/opt/caml-crush-client
+    depends_on:
+      hsm-driver:
+        condition: service_healthy
+  
+  hsm-driver:
+    build: .
+    environment:
+      - DFENCE_PKCS11_IP=192.168.1.100
+      - DFENCE_PKCS11_USER=user1
+      - HSM_DISABLE_LEGACY_OPERATIONS=1
+    volumes:
+      - hsm-driver:/opt/caml-crush-client
+
+volumes:
+  hsm-driver: { }
