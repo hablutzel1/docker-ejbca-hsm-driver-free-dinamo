@@ -10,6 +10,8 @@ services:
     depends_on:
       hsm-driver:
         condition: service_healthy
+        # If hsm-driver is restarted with `docker compose restart hsm-driver`, restart application as well. Otherwise, apparently there is a broken connection.
+        restart: true
   
   hsm-driver:
     build: .
